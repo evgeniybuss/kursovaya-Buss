@@ -10,6 +10,7 @@
 #include "File.h"
 #include "Unit.h"
 #include "Folder.h"
+#include "Exceptions.h"
 File :: File()  {}
 File :: ~File() {}
 void  File :: info(string name,string arch_name)
@@ -21,7 +22,7 @@ void  File :: info(string name,string arch_name)
     str="";
     stream.open(arch_name, ios_base::in | ios_base :: out);
     if (!stream.is_open())
-        throw 0;
+        throw archex;
     stream >> temp;
     for (int i = 1;i <= temp; i++)
     {
@@ -50,11 +51,11 @@ void File :: add_ (string name, string arch_name)
     fstream file;
     stream.open(arch_name, ios_base::in | ios_base :: out);
     if (!stream.is_open())
-        throw 0;
+        throw archex;
     stream.seekg(0,ios::end);
     file.open(name, std::ios::in);
     if (!file.is_open())
-        throw 1;
+        throw fileex;
     size=getsize(file);
     stream<<name<<endl<<size<<endl;
     while(!file.eof())
@@ -77,10 +78,10 @@ void File :: delete_(string name, string arch_name)
     sym=0;
     stream.open(arch_name, ios_base::in | ios_base :: out);
     if (!stream.is_open())
-        throw 0;
+        throw archex;
     tmp.open("/Users/evgenijbuss/Desktop/testfiles/TMP.txt",std::ios::out);
     if (!tmp.is_open())
-        throw 2;
+        throw tmpex;
     stream.seekg(0,ios::beg);
     stream>>temp;
     string check="";
@@ -125,7 +126,7 @@ void File :: delete_(string name, string arch_name)
     //stream.seekg(marker,ios::beg);
     tmp.open("/Users/evgenijbuss/Desktop/testfiles/TMP.txt",std::ios::in);
     if (!tmp.is_open())
-        throw 2;
+        throw tmpex;
     while(!tmp.eof())
     {
         tmp.get(sym);
@@ -142,11 +143,11 @@ void File :: extract_(string name,string arch_name)
     sym=0;
     stream.open(arch_name, ios_base::in | ios_base :: out);
     if (!stream.is_open())
-        throw 0;
+        throw archex;
     ofstream ex;
     tmp.open("/Users/evgenijbuss/Desktop/testfiles/TMP.txt",std::ios::out);
     if (!tmp.is_open())
-        throw 2;
+        throw tmpex;
     stream.seekg(0,ios::beg);
     stream>>temp;
     string check="";
@@ -203,7 +204,7 @@ void File :: extract_(string name,string arch_name)
     stream.open(arch_name,std::ios::out);
     tmp.open("/Users/evgenijbuss/Desktop/testfiles/TMP.txt",std::ios::in);
     if (!tmp.is_open())
-        throw 2;
+        throw tmpex;
     while(!tmp.eof())
     {
         tmp.get(sym);

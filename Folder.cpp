@@ -10,6 +10,7 @@
 #include "Unit.h"
 #include "Folder.h"
 #include "File.h"
+#include "Exceptions.h"
 Folder :: Folder() {}
 Folder :: ~Folder() {}
 void  Folder :: info(string name,string arch_name)
@@ -19,7 +20,7 @@ void  Folder :: info(string name,string arch_name)
     string fname="";
     stream.open(arch_name, ios_base::in | ios_base :: out);
     if (!stream.is_open())
-        throw 0;
+        throw archex;
     stream >> temp;
     for (int i = 1;i <= temp; i++)
     {
@@ -45,10 +46,10 @@ void Folder :: add_to_folder (string file_name,string folder_name,string arch_na
     flag = false;
     stream.open(arch_name, ios_base::in | ios_base :: out);
     if (!stream.is_open())
-        throw 0;
+        throw archex;
     tmp.open("/Users/evgenijbuss/Desktop/testfiles/TMP.txt",std::ios::out);
     if (!tmp.is_open())
-        throw 2;
+        throw tmpex;
     stream.seekg(0,ios::beg);
     stream >> temp;
     string check="";
@@ -103,10 +104,10 @@ void Folder :: extract_from_folder(string file_name, string folder_name, string 
     string fname = "";
     stream.open(arch_name, ios_base::in | ios_base :: out);
     if (!stream.is_open())
-        throw 0;
+        throw archex;
     tmp.open("/Users/evgenijbuss/Desktop/testfiles/TMP.txt",std::ios::out);
     if (!tmp.is_open())
-        throw 2;
+        throw tmpex;
     stream.seekg(0,ios::beg);
     stream>>temp;
     string check="";
@@ -140,10 +141,10 @@ void Folder :: delete_from_folder (string file_name, string folder_name, string 
     string fname="";
     stream.open(arch_name, ios_base::in | ios_base :: out);
     if (!stream.is_open())
-        throw 0;
+        throw archex;
     tmp.open("/Users/evgenijbuss/Desktop/testfiles/TMP.txt",std::ios::out);
     if (!tmp.is_open())
-        throw 2;
+        throw tmpex;
     stream.seekg(0,ios::beg);
     stream>>temp;
     string check=get_shortname(stream);
@@ -185,7 +186,7 @@ void Folder :: delete_from_folder (string file_name, string folder_name, string 
     stream.open(arch_name,std::ios::out);
     tmp.open("/Users/evgenijbuss/Desktop/testfiles/TMP.txt",std::ios::in);
     if (!tmp.is_open())
-        throw 2;
+        throw tmpex;
     while(!tmp.eof())
     {
         tmp.get(sym);
@@ -201,10 +202,10 @@ void Folder :: delete_(string name,string arch_name)
     flag = false;
     stream.open(arch_name, ios_base::in | ios_base :: out);
     if (!stream.is_open())
-        throw 0;
+        throw archex;
     tmp.open("/Users/evgenijbuss/Desktop/testfiles/TMP.txt",std::ios::out);
     if (!tmp.is_open())
-        throw 2;
+        throw tmpex;
     stream.seekg(0,ios::beg);
     stream>>temp;
     string check="";
@@ -237,10 +238,10 @@ void Folder :: extract_(string name,string arch_name)
     flag = false;
     stream.open(arch_name, ios_base::in | ios_base :: out);
     if (!stream.is_open())
-        throw 0; 
+        throw archex;
     tmp.open("/Users/evgenijbuss/Desktop/testfiles/TMP.txt",std::ios::out);
     if (!tmp.is_open())
-        throw 2;
+        throw tmpex;
     stream.seekg(0,ios::beg);
     stream>>temp;
     string check="";
